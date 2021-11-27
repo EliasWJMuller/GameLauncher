@@ -66,16 +66,16 @@ def bird_animation():
 
 def score_display(game_state):
     if game_state == "main_game":
-        score_surface = game_font.render(str(int(score)), True, (255,255,255))
+        score_surface = game_font.render(str(int(score)), True, (0,0,0))
         score_rect = score_surface.get_rect(center = (288, 30))
         screen.blit(score_surface,score_rect)
 
     if game_state == "game_over":
-        score_surface = game_font.render("Score " + str(int(score)), True, (255,255,255))
+        score_surface = game_font.render("Score " + str(int(score)), True, (0,0,0))
         score_rect = score_surface.get_rect(center = (288, 30))
         screen.blit(score_surface,score_rect)        
         
-        highscore_surface = game_font_high.render("Highscore: " + str(int(high_score)), True, (255,255,255))
+        highscore_surface = game_font_high.render("Highscore: " + str(int(high_score)), True, (255,0,0))
         highscore_rect = highscore_surface.get_rect(center = (288, 400))
         screen.blit(highscore_surface, highscore_rect)
 
@@ -115,7 +115,7 @@ can_score = True
 
 # Initiating pictures 
 # loading the background / using .convert() to make performance better (it isnt a simple picture file anymore)
-background_surface = pygame.image.load("assets/background_day.png").convert()
+background_surface = pygame.image.load("assets/background_stgallen_small.png").convert()
 
 # loading the floor 
 floor_surface = pygame.image.load("assets/base.png").convert()
@@ -199,7 +199,7 @@ while True:
 
     # showing our background
     screen.blit(background_surface, (0,0))
-    screen.blit(background_surface, (288 ,0))
+    #screen.blit(background_surface, (288 ,0))
 
     if game_active:
         ##### BIRD #######  

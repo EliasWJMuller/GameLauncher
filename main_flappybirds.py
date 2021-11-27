@@ -75,7 +75,7 @@ def score_display(game_state):
         score_rect = score_surface.get_rect(center = (288, 30))
         screen.blit(score_surface,score_rect)        
         
-        highscore_surface = game_font_high.render("Highscore: " + str(int(high_score)), True, (255,0,0))
+        highscore_surface = game_font_high.render("Highscore: " + str(int(high_score)), True, (255,255,255))
         highscore_rect = highscore_surface.get_rect(center = (288, 400))
         screen.blit(highscore_surface, highscore_rect)
 
@@ -153,9 +153,11 @@ game_over_rect = game_over_surface.get_rect(center = (288, 206))
 
 
 flap_sound = pygame.mixer.Sound("assets/wing_sound.wav")
+flap_sound.set_volume(0.2)
 death_sound = pygame.mixer.Sound("assets/hit.wav")
+death_sound.set_volume(0.2)
 score_sound = pygame.mixer.Sound("assets/point.wav")
-
+score_sound.set_volume(0.5)
 
 
 while True:

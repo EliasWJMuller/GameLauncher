@@ -5,6 +5,8 @@ import pygame
 import sys
 import math
 
+# Credits and special thanks for the guidance to the youtube Channel Keith Galli (https://www.youtube.com/watch?v=UYgyRArKDEs)
+
 #RGB value means we defin 0 for red, 0 for green and 255 for blue, which means we have a high level of blue in this variable
 BLUE = (0,0,255)
 #RGB value for black is defined as 0 for everything 
@@ -79,6 +81,9 @@ def winning_move(board, piece):
 			if board[r][c] == piece and board[r-1][c+1] == piece and board[r-2][c+2] == piece and board[r-3][c+3] == piece:
 				return True
 
+# Credits and special thanks for the guidance regarding the AI to the youtube Channel Keith Galli (https://www.youtube.com/watch?v=MMLtza3CZFM)
+
+			
 # this is going to evaluate windows in an arbitrary way
 def evaluate_window(window, piece):
 	score = 0

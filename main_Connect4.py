@@ -1,4 +1,4 @@
-
+# first we need to import the required modules
 import numpy as np
 import random
 import pygame

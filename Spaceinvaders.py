@@ -10,7 +10,7 @@ pygame.font.init()
     # Creating a window where the game is displayed
 # Widht and Height parameters which are used in the function set_mode. 
 # Determines the widht and height of window.
-WIDTH, HEIGHT = 1000, 700 
+WIDTH, HEIGHT = 1000, 600 
 # Initialization of the screen with the parameters WIDHT and HEIGHT
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 # Displays text on the window

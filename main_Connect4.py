@@ -248,8 +248,8 @@ game_over = False
 #initializing pygame
 pygame.init()
 
-#break the board up into 100 pixels 
-SQUARESIZE = 100
+#break the board up into 70 pixels 
+SQUARESIZE = 70
 
 width = COLUMN_COUNT * SQUARESIZE
 height = (ROW_COUNT+1) * SQUARESIZE

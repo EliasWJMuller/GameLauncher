@@ -11,10 +11,8 @@ Created on Fri Nov 19 09:07:51 2021
 
 #pip install pygame
 import pygame
-import sys
 import numpy as np
-import math
-from random import randrange as rand
+import time
 
 pygame.init() #the pygame library is initiated and ready to be used
 
@@ -43,9 +41,8 @@ class Lines_Boxes:
         pygame.display.update()
         return self.screen
     
-    def colorline_process(self, color = (237,28,36), xcor = 0, ycor = 0):
-        global drwan
-        drawn = 0
+    def colorline_process(self, color = None, xcor = 0, ycor = 0):
+        line_drawn = 0
         xarr = np.asarray(self.x)
         ix = np.abs(xarr - xcor).argmin()
         xclose = xarr[ix]
@@ -92,20 +89,18 @@ class Lines_Boxes:
         if 0 not in [xclose, yclose, xclose1, yclose1] and self.wid not in [xclose, yclose, xclose1, yclose1]: #any/ all func did not work
             print([xclose, yclose, xclose1, yclose1])
             if ((xclose, yclose), (xclose1, yclose1)) not in self.dictio.values(): 
-                global count 
+                global count
                 self.dictio[count] = ((xclose, yclose), (xclose1, yclose1))
                 self.dictio[count+.1] = ((xclose1, yclose1), (xclose, yclose))
     
                 pygame.draw.line(self.screen, color, (xclose,yclose), (xclose1, yclose1), 3)
                 pygame.display.update()
                 count += 1
-                return True
                 
     def Rect_InGame(self, color = None):
         global count
-        global draw_box
-        i = count - 1
-        
+        global box
+        i = count - 1 
         if self.dictio[i][0][0] != self.dictio[i][1][0]:#drawn line is horizontal
             q1_1 = ((self.dictio[i][0][0], self.dictio[i][0][1]-self.len), (self.dictio[i][1][0],self.dictio[i][1][1]-self.len))
             q1_2 = ((self.dictio[i][0][0], self.dictio[i][0][1]), (self.dictio[i][0][0],self.dictio[i][0][1]-self.len))
@@ -119,18 +114,14 @@ class Lines_Boxes:
                 if q1_2 in self.dictio.values() and q1_3 in self.dictio.values():
                     pygame.draw.rect(self.screen, color, pygame.Rect(min(self.dictio[i][0][0]+self.len/4,self.dictio[i][1][0]+self.len/4),self.dictio[i][0][1]-self.len+self.len/4, self.len/2, self.len/2))                                                                                                                                                 
                     pygame.display.update()
-                    print("BOX?")
-                    return True
-                    count -= 1
-                
+                    box = 1
                     
             if q2_1 in self.dictio.values():
+
                 if q2_2 in self.dictio.values() and q2_3 in self.dictio.values():
                     pygame.draw.rect(self.screen, color, pygame.Rect(min(self.dictio[i][0][0]+self.len/4,self.dictio[i][1][0]+self.len/4),self.dictio[i][0][1]+self.len/4, self.len/2, self.len/2))                                                                                                                                                 
                     pygame.display.update()
-                    print("BOX?")
-                    return True
-                    count -= 1
+                    box = 1
                     
         elif self.dictio[i][0][1] != self.dictio[i][1][1]:#drawn line is vertical
             q1_1 = ((self.dictio[i][0][0], self.dictio[i][0][1]), (self.dictio[i][0][0]-self.len,self.dictio[i][0][1]))
@@ -146,20 +137,15 @@ class Lines_Boxes:
                     pygame.draw.rect(self.screen, color, pygame.Rect(self.dictio[i][0][0]-self.len+self.len/4,min(self.dictio[i][0][1]+self.len/4,self.dictio[i][1][1]+self.len/4),self.len/2,self.len/2))                                                                                                                                              
                     pygame.display.update()
                     pygame.display.update()
-                    print("BOX?")
-                    return True
-                    count -= 1
-                    
+                    box = 1
+            
             if q2_1 in self.dictio.values():
                 if q2_2 in self.dictio.values() and q2_3 in self.dictio.values():
                     pygame.draw.rect(self.screen, color, pygame.Rect(self.dictio[i][0][0]+self.len/4,min(self.dictio[i][0][1]+self.len/4,self.dictio[i][1][1]+self.len/4),self.len/2,self.len/2))                                                                                                                                                
                     pygame.display.update()
                     pygame.display.update()
-                    print("BOX?")
-                    return True
-                    count -= 1
-        else:
-            return False
+                    box = 1
+
 def main():
     
     value = 400 #the game winow must be quadratic 
@@ -174,28 +160,35 @@ def main():
     Lines_Boxes(screen = screen)._draw_lines()
     crashed = False
     global count
+    global box
     count = 0
+    color = [(237,28,36), (0,0,255)]
+    i = 0
     
     while not crashed:
+        box = 0
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 crashed = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mousex, mousey = pygame.mouse.get_pos()
                 print(mousex, mousey)
-                if count%2 == 0: color  = (237,28,36)
-                if count%2 != 0: color = (0,0,255)
                 
-                Lines_Boxes(screen = screen,dictio = filled_lines).colorline_process(color = color, xcor = mousex, ycor = mousey)
-                Lines_Boxes(screen = screen,dictio = filled_lines).Rect_InGame(color)
-                
-                
-                # if Lines_Boxes(screen = screen,dictio = filled_lines).Rect_InGame(color) == True:
-                #     count -= 1
-                        
+                Lines_Boxes(screen = screen,dictio = filled_lines).colorline_process(color = color[i], xcor = mousex, ycor = mousey)
+                Lines_Boxes(screen = screen,dictio = filled_lines).Rect_InGame(color[i])
                 pygame.display.update()
+                    
+                if box == 1:
+                    if i == 1:
+                        i = 1
+                    else:
+                        i = 0
+                elif box == 0:
+                    if i == 1:
+                        i = 0
+                    else:
+                        i = 1
                 
-
                 print(filled_lines)
                 
             print(event)

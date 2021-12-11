@@ -34,7 +34,7 @@ canvas.pack(fill=BOTH, expand=1)
 
 #DOTS AND BOXES
 def run_D_B():
-    os.system('../main_D_and_B.py')
+    os.system('python3 ../main_D_and_B.py')
     
 l_titel_DB = Label(window, text="Dots and Boxes (2 Player)", foreground = "Black", font = "Helvetica 16")
 l_titel_DB.place(relx=0.5, rely=0.2, anchor="center")
